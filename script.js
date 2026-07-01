@@ -1,4 +1,4 @@
-const apiUrl = "./gemini.js";
+const apiUrl = "/api/gemini";
 
 const userQueryEl = document.getElementById('userQuery');
 const submitBtn = document.getElementById('submitBtn');
