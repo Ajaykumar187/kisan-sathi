@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisan Sathi - Your AI Crop Advisor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="full-width-container space-y-8">
+        <header class="text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#365314] tracking-tight">
+                🌱 Kisan Sathi
+            </h1>
+            <p class="text-lg text-gray-600 mt-2">Your AI-Powered Guide to Agriculture</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <div class="lg:col-span-1 space-y-6">
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h2 class="text-2xl font-semibold text-[#65a30d] flex items-center mb-4">
+                        <span class="mr-2">☀️</span> Local Weather Forecast
+                    </h2>
+                    
+                    <div class="mb-4 flex space-x-2">
+                        <input id="cityInput" type="text" placeholder="Enter City or Pin Code" class="flex-grow p-2 border border-gray-300 rounded-lg text-sm focus:ring-[#65a30d] focus:border-[#65a30d]">
+                        <button id="searchWeatherBtn" onclick="fetchWeather()" class="bg-[#a3e635] text-white font-medium py-2 px-4 rounded-lg hover:bg-[#84cc16] transition duration-150">
+                            Go
+                        </button>
+                    </div>
+
+                    <div id="weatherLoadingIndicator" class="hidden flex justify-center items-center py-4">
+                        <div class="flex space-x-2">
+                            <span class="w-2 h-2 bg-[#65a30d] rounded-full loading-dot"></span>
+                            <span class="w-2 h-2 bg-[#65a30d] rounded-full loading-dot"></span>
+                            <span class="w-2 h-2 bg-[#65a30d] rounded-full loading-dot"></span>
+                        </div>
+                        <span class="ml-2 text-[#65a30d] text-sm">Fetching...</span>
+                    </div>
+
+                    <div id="weatherOutput" class="space-y-3">
+                        <p class="text-sm text-gray-500">Enter a city above to get current weather conditions.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h2 class="text-2xl font-semibold text-[#65a30d] flex items-center mb-4">
+                        <span class="mr-2">💰</span> Mandi Prices (Local)
+                    </h2>
+                    
+                    <div class="mb-4 flex space-x-2">
+                        <input id="marketCityInput" type="text" placeholder="Enter Market/City Name" class="flex-grow p-2 border border-gray-300 rounded-lg text-sm focus:ring-[#65a30d] focus:border-[#65a30d]">
+                        <button id="searchMarketBtn" onclick="fetchMarketPrices()" class="bg-[#a3e635] text-white font-medium py-2 px-4 rounded-lg hover:bg-[#84cc16] transition duration-150">
+                            Search
+                        </button>
+                    </div>
+
+                    <div id="marketLoadingIndicator" class="hidden flex justify-center items-center py-4">
+                        <div class="flex space-x-2">
+                            <span class="w-2 h-2 bg-[#65a30d] rounded-full loading-dot"></span>
+                            <span class="w-2 h-2 bg-[#65a30d] rounded-full loading-dot"></span>
+                            <span class="w-2 h-2 bg-[#65a30d] rounded-full loading-dot"></span>
+                        </div>
+                        <span class="ml-2 text-[#65a30d] text-sm">Searching prices...</span>
+                    </div>
+
+                    <div id="marketPriceOutput">
+                        <p class="text-sm text-gray-500 mb-4">Prices are dynamic. Search for a city/market to get current rates.</p>
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="py-2 text-left font-medium text-gray-600">Commodity</th>
+                                    <th class="py-2 text-right font-medium text-gray-600">Price (per Quintal)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marketPricesBody">
+                                <tr>
+                                    <td colspan="2" class="py-4 text-center text-gray-500">No prices loaded.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 advisor-card p-6 rounded-xl shadow-2xl">
+                <h2 class="text-3xl font-bold text-[#365314] mb-4 flex items-center">
+                    <span class="mr-2 text-4xl">🤖</span> AI Crop Advisor
+                </h2>
+                <p class="text-gray-600 mb-6">Ask any question about crops, pests, soil, or farming techniques. The AI uses Google Search for the latest, grounded advice.</p>
+
+                <div class="mb-6 space-y-4">
+                    <textarea id="userQuery" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-[#65a30d] focus:border-[#65a30d] resize-none" placeholder="E.g., What is the best fertilizer for wheat after 40 days of sowing? Or, How to treat leaf curl virus in tomatoes?"></textarea>
+                    <button id="submitBtn" onclick="fetchCropAdvice()" class="btn-primary text-white font-semibold py-3 px-6 rounded-lg w-full shadow-md flex items-center justify-center">
+                        Get Expert Advice
+                    </button>
+                </div>
+
+                <div class="pt-6 border-t border-gray-200">
+                    <h3 class="text-xl font-semibold text-[#365314] mb-3">Advisor Response:</h3>
+                    <div id="loadingIndicator" class="hidden flex justify-center items-center py-8">
+                        <div class="flex space-x-2">
+                            <span class="w-3 h-3 bg-[#65a30d] rounded-full loading-dot"></span>
+                            <span class="w-3 h-3 bg-[#65a30d] rounded-full loading-dot"></span>
+                            <span class="w-3 h-3 bg-[#65a30d] rounded-full loading-dot"></span>
+                        </div>
+                        <span class="ml-4 text-[#65a30d] font-medium">Searching and formulating advice...</span>
+                    </div>
+
+                    <div id="adviceOutput" class="advice-box p-4 rounded-lg text-gray-800 shadow-inner">
+                        <p class="text-gray-500">Your advice will appear here. Try asking a specific question!</p>
+                    </div>
+
+                    <div id="sourceOutput" class="mt-4 text-sm text-gray-600">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
