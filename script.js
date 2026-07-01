@@ -1,5 +1,4 @@
-const apiKey = "Paste_Your_Google_API_Key_Here"; // Replace with your actual API key
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+const apiUrl = "./gemini.js";
 
 const userQueryEl = document.getElementById('userQuery');
 const submitBtn = document.getElementById('submitBtn');
