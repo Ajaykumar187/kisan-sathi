@@ -8,6 +8,17 @@
   <img src="https://img.shields.io/badge/Google-Gemini_AI-red?style=for-the-badge&logo=google">
 </p>
 
+---
+
+## 🔗 Links
+
+| Resource | Link |
+|---|---|
+| Live Demo | https://kisan-sathi-alpha.vercel.app |
+| GitHub Repo | https://github.com/Ajaykumar187/kisan-sathi |
+
+---
+
 ## 📖 Overview
 
 Kisan Sathi is an AI-powered agriculture assistant that helps farmers make better farming decisions using Artificial Intelligence.
@@ -163,11 +174,3 @@ This project helped me gain practical experience in:
 - Responsive UI Design
 
 ---
-
-## 👨‍💻 Developer
-
-**Ajay Kumar**
-
-## 📜 License
-
-This project is developed for educational purposes.
